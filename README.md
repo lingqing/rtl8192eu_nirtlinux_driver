@@ -1,3 +1,37 @@
+if you want to use this driver on NI Real Time Linux System , follow step are need:
+## 1. download the driver file 
+   ``` shell
+   cd # your path #
+   mkdir drivers
+   git clone https://github.com/lingqing/rtl8192eu_nirtlinux_driver.git
+   ```
+## 2. if your device is IC-3173, you can directly use the kernel object file
+   ``` shell
+   cp 8192eu.ko /lib/modules/`uname -r`/kernel
+   #where uname -r is a command that gets information about the current kernel version
+   demmod
+   modprob 8192eu
+   reboot
+   ```
+###   if your device is others ,you need to build the driver
+   ``` shell
+   cd rtl8192eu_nirtlinux_driver
+   # edit Make file to suitalbe your system version
+   vi Makefile  # edit the platform part
+   
+   # set enviroment variable
+   source /usr/local/natinst/tools/versioning_utils.sh
+   setup_versioning_env
+   versioning_call make
+   # then do the same as IC-3173
+   ```
+## 3. then use 'ifconfig' can make sure driver is installed
+   as for the driver can autmatic config at boot, you need to config the network in NI-Max, see:
+   http://www.jianshu.com/p/f0b2af054f76
+
+====== end ==========
+
+## ========= folows are original readme ==============
 # rtl8192eu linux drivers
 
 **NOTE:** This branch is based on Realtek's driver versioned 4.4.1. `master` is based on 4.3.1.1 originally.
